@@ -1,6 +1,7 @@
 import os
 import torch
 import gdown
+import zipfile
 
 
 class SaveBestModel:
@@ -56,11 +57,12 @@ def avail_models(model_dir):
             if key_output != key:
                 print(f"{key} could not be downloaded")
                 break
-        if key[-4:] == ".zip":
-            savedmodel_dir = os.path.join(model_dir, "savedmodel")
-            if not os.path.exists(savedmodel_dir):
-                os.mkdir(savedmodel_dir)
-            if not os.path.exists(os.path.join(savedmodel_dir, key[:-4])):
-                os.system(f"unzip {key} -d {savedmodel_dir}")
-            os.unlink(key)
+            if key[-4:] == ".zip":
+                savedmodel_dir = os.path.join(model_dir, "savedmodel")
+                if not os.path.exists(savedmodel_dir):
+                    os.mkdir(savedmodel_dir)
+                if not os.path.exists(os.path.join(savedmodel_dir, key[:-4])):
+                    with zipfile.ZipFile(key, 'r') as zip_ref:
+                        zip_ref.extractall(savedmodel_dir)
+                os.unlink(key)
     os.chdir(cur_dir)

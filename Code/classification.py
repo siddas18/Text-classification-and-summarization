@@ -14,6 +14,9 @@ from utils import *
 import argparse
 # from sklearn.metrics import classification_report
 
+# python -m pip install --user torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1+cu117
+# torchtext==0.14.1 -f https://download.pytorch.org/whl/cu117/torch_stable.html
+
 plt.style.use('ggplot')
 BATCH_SIZE = 32
 model_save_name = 'trans-roberta-model.pt'
